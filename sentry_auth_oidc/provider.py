@@ -11,7 +11,8 @@ from .constants import (
     ISSUER, TOKEN_ENDPOINT,
     CLIENT_SECRET,
     CLIENT_ID,
-    SCOPE, DATA_VERSION
+    SCOPE, DATA_VERSION,
+    VERIFY
 )
 from .views import FetchUser, OIDCConfigureView
 import logging
@@ -93,7 +94,7 @@ class OIDCProvider(OAuth2Provider):
         bearer_auth = 'Bearer ' + bearer_token
         return requests.get(endpoint + "?schema=openid",
                             headers={'Authorization': bearer_auth},
-                            timeout=2.0).json()
+                            timeout=2.0, verify=bool(VERIFY)).json()
 
     def build_identity(self, state):
         data = state['data']
