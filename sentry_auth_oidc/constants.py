@@ -20,7 +20,7 @@ DATA_VERSION = '1'
 OIDC_DOMAIN = getattr(settings, 'OIDC_DOMAIN', None)
 if OIDC_DOMAIN:
     WELL_KNOWN_URL = OIDC_DOMAIN.strip("/") + WELL_KNOWN_SCHEME
-    well_known_values = requests.get(WELL_KNOWN_URL, timeout=2.0, verify=bool(VERIFY)).json()
+    well_known_values = requests.get(WELL_KNOWN_URL, timeout=2.0, verify=False).json()
     if well_known_values:
         if USERINFO_ENDPOINT is None:
             USERINFO_ENDPOINT = well_known_values['userinfo_endpoint']
