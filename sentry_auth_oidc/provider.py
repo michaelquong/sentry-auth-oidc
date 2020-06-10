@@ -93,7 +93,7 @@ class OIDCProvider(OAuth2Provider):
         bearer_auth = 'Bearer ' + bearer_token
         return requests.get(endpoint + "?schema=openid",
                             headers={'Authorization': bearer_auth},
-                            timeout=2.0).json()
+                            timeout=2.0, verify=bool(VERIFY)).json()
 
     def build_identity(self, state):
         data = state['data']
